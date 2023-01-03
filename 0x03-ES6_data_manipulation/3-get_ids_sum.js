@@ -8,11 +8,3 @@ export function getStudentIdsSum(arrayParam = []) {
     0
   );
 }
-
-// console.log(
-//   getStudentIdsSum([
-//     { id: 1, name: "Victor" },
-//     { id: 2, name: "Chisom" },
-//     { id: 7, name: "Dell" },
-//   ])
-// );
