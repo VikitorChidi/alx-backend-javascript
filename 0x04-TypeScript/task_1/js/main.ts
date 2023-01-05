@@ -1,10 +1,10 @@
 interface Teacher {
-  firstName: string;
-  lastName: string;
+  readonly firstName: string;
+  readonly lastName: string;
   fullTimeEmployee: boolean;
   yearsOfExperience?: number;
   location: string;
-  contract?: boolean;
+  [propName: string]: any;
 }
 
 const teacher: Teacher = {
@@ -16,7 +16,7 @@ const teacher: Teacher = {
   contract: false,
 };
 
-console.log(teacher);
+// console.log(teacher);
 
 interface Directors extends Teacher {
   numberOfReports: number;
@@ -29,17 +29,49 @@ const director1: Directors = {
   fullTimeEmployee: true,
   numberOfReports: 17,
 };
-console.log(director1);
+// console.log(director1);
 
 interface printTeacherFunction {
   printTeacher: (firstName: string, lastName: string) => string;
 }
 
-// function printTeacher(
-//   firstName: string,
-//   lastName: string
-// ): printTeacherFunction {
-//   return `${firstName[0]}. ${lastName}`;
-// }
+function pringtTeacher(firstName: string, lastName: string): string {
+  return `${firstName[0]}. ${lastName}`;
+}
 
-// console.log(printTeacher);
+// console.log(pringtTeacher("John", "Doe"));
+
+export interface IStudentClassConstructor {
+  new (firstName: string, lastName: string): IStudentClass;
+}
+
+export interface IStudentClass {
+  workOnHomework(): string;
+  displayName(): string;
+}
+
+export class StudentClass implements IStudentClass {
+  private _firstName!: string;
+  private _lastName!: string;
+
+  constructor(firstName: string, lastName: string) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
+
+  workOnHomework() {
+    return "Currently working";
+  }
+
+  displayName() {
+    return this._firstName;
+  }
+}
+
+export function createStudent(
+  ctor: IStudentClassConstructor,
+  firstName: string,
+  lastName: string
+): IStudentClass {
+  return new ctor(firstName, lastName);
+}
